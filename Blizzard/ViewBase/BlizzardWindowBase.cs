@@ -18,6 +18,7 @@ namespace Blizzard.ViewBase
 		public BlizzardWindowBase()
 		{
 			//style需要放置在loaded前执行,有待研究
+			//不能在loaded事件中处理style，估计是绘制顺序相关。
 			this.Style = App.Current.Resources["BlizzardWindowStyle"] as Style;
 			this.Loaded += BlizzardWindowBase_Loaded;
 		}
