@@ -8,6 +8,39 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="478" Width="365" Style="{DynamicResource BlizzardWindowStyle}" >
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid >
+            <Image Source="Resource/Img/20170425121858.png" Stretch="None"/>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Style="{DynamicResource GridRowStyle}">
+                <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Width="57"/>
+                <Button x:Name="button" Content="Button" HorizontalAlignment="Right" Width="48"/>
+            </Grid>
+            <Grid Grid.Row="1" Style="{DynamicResource GridRowStyle}">
+                <TextBox  TextWrapping="Wrap" Text="TextBox" Style="{DynamicResource BlizzardTextBoxStyle}"/>
+            </Grid>
+            <Grid Grid.Row="2" Style="{DynamicResource GridRowStyle}">
+                <TextBox  TextWrapping="Wrap" Text="TextBox" Style="{DynamicResource BlizzardTextBoxStyle}"/>
+            </Grid>
+            <Grid Grid.Row="3" Style="{DynamicResource GridRowStyle}">
+                <CheckBox Content="始终让我保持登陆状态" HorizontalAlignment="Left"   Margin="0,0,0,10" Style="{DynamicResource BlizzardCheckBoxStyle}">
+                </CheckBox>
+
+            </Grid>
+
+        </Grid>
+
     </Grid>
 </viewBase:BlizzardWindowBase>

@@ -1,13 +1,35 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:viewBase="clr-namespace:Blizzard.ViewBase"
-                    xmlns:local="clr-namespace:Blizzard.Resource.Style">
+                    xmlns:local="clr-namespace:Blizzard.Resource.Style" xmlns:System="clr-namespace:System;assembly=mscorlib">
     <!--失去焦点颜色-->
-    <SolidColorBrush x:Key="DeactivatedColor" Color="#FFC2E2EC"/>
+    <SolidColorBrush x:Key="DeactivatedColor" Color="#FF0E1116"/>
     <!--默认焦点颜色-->
     <SolidColorBrush x:Key="ActivatedColor" Color="#FF3C4658"/>
     <!--默认背景色-->
     <SolidColorBrush x:Key="DefaultColor" Color="#FF1F2633"/>
+    <!--默认边框颜色-->
+    <SolidColorBrush x:Key="DefaultBorderColor" Color="#FF707070"/>
+    <!--焦点文本颜色-->
+    <SolidColorBrush x:Key="FocusColor" Color="#FFB3B3B3" />
+    <!--编辑区背景色-->
+    <SolidColorBrush x:Key="EditBackgroundColor" Color="#FF0E1116"/>
+    <!--焦点边框颜色-->
+    <SolidColorBrush x:Key="FocusBorderColor" Color="#FF5593FF"/>
+    <!--焦点图像颜色-->
+    <SolidColorBrush x:Key="FocusGlyphColor" Color="#FF0E86CA"/>
+    <!--鼠标划过颜色-->
+    <SolidColorBrush x:Key="MouseOverBorderColor" Color="#FF5593FF"/>
+    <!--禁用边框颜色-->
+    <SolidColorBrush x:Key="DisabledBorderColor" Color="#FF5593FF"/>
+    <!--禁用图像颜色-->
+    <SolidColorBrush x:Key="DisabledGlyphColor" Color="#FF707070"/>
+    <!--圆角度数-->
+    <CornerRadius x:Key="DefaultCornerRadius">3</CornerRadius>
+    <!--边框宽度-->
+    <Thickness x:Key="DefauThickness">0.8</Thickness>
+    <!--默认path轮廓宽度-->
+    <System:Double x:Key="PathStrokeThickness">0.8</System:Double>
 
     <!--最小化按钮样式-->
     <Style x:Key="WinMinBtnStyle" TargetType="{x:Type Button}">
@@ -26,7 +48,7 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="MainBorder" Property="Background" Value="#33a58d"/>
+                            <Setter TargetName="MainBorder" Property="Background" Value="{StaticResource FocusColor}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -51,7 +73,7 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="MainBorder" Property="Background" Value="#d44c45"/>
+                            <Setter TargetName="MainBorder" Property="Background" Value="{StaticResource FocusColor}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -59,25 +81,37 @@
         </Setter>
     </Style>
 
-    <!--窗体焦点指示模板-->
+
     <ControlTemplate x:Key="BlizzardTitileButtonTemplate" TargetType="{x:Type Button}">
         <Grid >
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="15"/>
+                <ColumnDefinition Width="10"/>
                 <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="15"/>
+                <ColumnDefinition Width="10"/>
             </Grid.ColumnDefinitions>
-            <Path Grid.ColumnSpan="3" x:Name="buttonPath" Data="M0,34.984375 L15.042001,35 0,35 z M148.33299,35 L148.25,35 M0,0 L148.01988,0 133.30257,35 15.042001,35 0,0.016000607 z M148.12589,0 L148.33299,0" 
-                  Fill="{TemplateBinding Background}" Stretch="UniformToFill" Stroke="White" StrokeThickness="0" >
+            <Rectangle Grid.Column="1" Fill="{TemplateBinding Background}"
+                       StrokeThickness="0.5" Width="300" MinWidth="100"
+                       Stretch="Fill"
+                       HorizontalAlignment="Stretch" Stroke="{DynamicResource DefaultBorderColor}"  Margin="-1.5,0"/>
+            <Path Data="M9.5684339,-0.11928261 L-0.38997599,-0.056503393 9.5893121,9.8022042" Fill="{TemplateBinding Background}" Height="Auto"  Stretch="Fill" Stroke="{DynamicResource DefaultBorderColor}" StrokeThickness="0.5" VerticalAlignment="Stretch" Grid.Column="2" RenderTransformOrigin="0.5,0.5">
+                <Path.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="-1"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Path.RenderTransform>
             </Path>
+            <Path Data="M9.5684339,-0.11928261 L-0.38997599,-0.056503393 9.5893121,9.8022042" Fill="{TemplateBinding Background}" Height="Auto"  Stretch="Fill" Stroke="{DynamicResource DefaultBorderColor}" StrokeThickness="0.5" VerticalAlignment="Stretch"/>
+            <!--<Path Grid.ColumnSpan="3" x:Name="buttonPath" Data="M0,0 L148.01988,0 133.30257,35 15.042001,35 0,0.016000607 z M148.12589,0 L148.33299,0" 
+                  Fill="{TemplateBinding Background}" Stretch="UniformToFill" Stroke="{DynamicResource DefaultBorderColor}" />-->
+
         </Grid>
     </ControlTemplate>
 
     <!--窗体控件模板-->
     <ControlTemplate x:Key="BlizzardWindowTemplate" TargetType="{x:Type Window}">
-        <ControlTemplate.Resources>
-
-        </ControlTemplate.Resources>
         <Border x:Name="border" BorderBrush="#2a927c" BorderThickness="0" Background="{DynamicResource DefaultColor}">
             <Border.Effect>
                 <DropShadowEffect/>
@@ -88,9 +122,9 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <Grid Grid.Row="0" Background="{Binding ElementName=border,Path=Background}">
+                <Grid Grid.Row="0" Background="{Binding Background, ElementName=border}">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="10"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
@@ -107,11 +141,14 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Button x:Name="TitleButton" Template="{DynamicResource BlizzardTitileButtonTemplate}" HorizontalAlignment="Center" Grid.Column="1" Grid.ColumnSpan="2" >
+                        <Button x:Name="TitleButton" Template="{DynamicResource BlizzardTitileButtonTemplate}" 
+                                HorizontalAlignment="Center" 
+                                Grid.Column="1" Grid.ColumnSpan="2" 
+                                BorderBrush="{DynamicResource DefaultBorderColor}" >
                             <Button.Style>
                                 <Style TargetType="{x:Type Button}">
                                     <Setter Property="Background" Value="{StaticResource ActivatedColor}" />
-                                    <Setter Property="BorderThickness" Value="0" />
+                                    <Setter Property="BorderThickness" Value="{StaticResource DefauThickness}" />
                                 </Style>
                             </Button.Style>
                         </Button>
@@ -154,5 +191,151 @@
         <Setter Property="WindowStyle" Value="None"/>
         <Setter Property="Template" Value="{StaticResource BlizzardWindowTemplate}"/>
     </Style>
+
+    <!--grid-->
+    <Style x:Key="GridRowStyle" TargetType="{x:Type Grid}">
+        <Setter Property="Margin" Value="30,8,30,8"/>
+    </Style>
+
+    <Style x:Key="FocusVisual">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="OptionMarkFocusVisual">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Rectangle Margin="14,0,0,0" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--checkBox样式-->
+    <Style x:Key="BlizzardCheckBoxStyle" TargetType="{x:Type CheckBox}">
+        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+        <Setter Property="Background" Value="{StaticResource EditBackgroundColor}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource DefaultBorderColor}"/>
+        <Setter Property="Foreground" Value="{StaticResource FocusColor}"/>
+        <Setter Property="BorderThickness" Value="{StaticResource DefauThickness}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type CheckBox}">
+                    <Grid x:Name="templateRoot" Background="Transparent" SnapsToDevicePixels="True" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Border x:Name="checkBoxBorder" Height="20" Width="20" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" 
+                            Background="{TemplateBinding Background}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"  
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
+                                CornerRadius="{DynamicResource DefaultCornerRadius}" >
+                            <Grid x:Name="markGrid">
+                                <Path x:Name="optionMark" Data="F1 M 9.97498,1.22334L 4.6983,9.09834L 4.52164,9.09834L 0,5.19331L 1.27664,3.52165L 4.255,6.08833L 8.33331,1.52588e-005L 9.97498,1.22334 Z " 
+                                      Fill="{StaticResource FocusGlyphColor}" Margin="2" Opacity="0" Stretch="Fill"/>
+                                <Rectangle x:Name="indeterminateMark" Fill="{TemplateBinding Background}" Margin="2" Opacity="0"/>
+                            </Grid>
+                        </Border>
+                        <ContentPresenter x:Name="contentPresenter" Grid.Column="1" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                            Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" 
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"
+                                                              />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="HasContent" Value="true">
+                            <Setter Property="FocusVisualStyle" Value="{StaticResource OptionMarkFocusVisual}"/>
+                            <Setter Property="Padding" Value="4,-1,0,0"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Background" TargetName="checkBoxBorder" Value="{StaticResource EditBackgroundColor}"/>
+                            <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="{StaticResource MouseOverBorderColor}"/>
+                            <Setter Property="Fill" TargetName="optionMark" Value="{StaticResource FocusGlyphColor}"/>
+                            <Setter Property="Fill" TargetName="indeterminateMark" Value="{StaticResource FocusGlyphColor}"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Background" TargetName="checkBoxBorder" Value="{StaticResource EditBackgroundColor}"/>
+                            <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="{StaticResource FocusBorderColor}"/>
+                            <Setter Property="Fill" TargetName="optionMark" Value="{StaticResource DisabledGlyphColor}"/>
+                            <Setter Property="Fill" TargetName="indeterminateMark" Value="{StaticResource DisabledGlyphColor}"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="Background" TargetName="checkBoxBorder" Value="{StaticResource EditBackgroundColor}"/>
+                            <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="{StaticResource FocusBorderColor}"/>
+                            <Setter Property="Fill" TargetName="optionMark" Value="{StaticResource FocusGlyphColor}"/>
+                            <Setter Property="Fill" TargetName="indeterminateMark" Value="{StaticResource FocusGlyphColor}"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="true">
+                            <Setter Property="Opacity" TargetName="optionMark" Value="1"/>
+                            <Setter Property="Opacity" TargetName="indeterminateMark" Value="0"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="{x:Null}">
+                            <Setter Property="Opacity" TargetName="optionMark" Value="0"/>
+                            <Setter Property="Opacity" TargetName="indeterminateMark" Value="1"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--textBox样式-->
+    <Style x:Key="BlizzardTextBoxStyle" TargetType="{x:Type TextBox}">
+        <Setter Property="Background" Value="{StaticResource EditBackgroundColor}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource DefaultBorderColor}"/>
+        <Setter Property="Foreground" Value="{StaticResource FocusColor}"/>
+        <Setter Property="BorderThickness" Value="{StaticResource DefauThickness}"/>
+        <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="AllowDrop" Value="true"/>
+        <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+        <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                Background="{TemplateBinding Background}" 
+                                SnapsToDevicePixels="True" 
+                                CornerRadius="{DynamicResource DefaultCornerRadius}" >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Grid.Column="1"/>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource MouseOverBorderColor}"/>
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocused" Value="true">
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource FocusBorderColor}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true"/>
+                    <Condition Property="IsSelectionActive" Value="false"/>
+                </MultiTrigger.Conditions>
+                <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+            </MultiTrigger>
+        </Style.Triggers>
+    </Style>
+
 
 </ResourceDictionary>
